@@ -1,0 +1,56 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Header from '@/ui/Header.astro'
+import Footer from '@/ui/Footer.astro'
+---
+
+<Layout>
+	<Header />
+	<main class='max-w-[35em]'>
+		<p>
+			This page lets you extract the colors of any image and export the colors palette.
+		</p>
+
+		<h1>My Goal</h1>
+		<p>Create a simple, ad-free web utility available to everyone, in addition ot being a project for learning purposes and to form part of my portfolio.</p>
+
+		<h1>How works?</h1>
+		<p>
+			Well, using <strong>K-means clustering algorithm</strong>, is like sorting your data points into different groups based on how close they are to each other. We usually use the euclidean distance function to measure this closeness. The 'k' just tells us how many groups we want in the end. This method is perfect for splitting up an image into different colors.
+		</p>
+		<p>
+			In our case, we're dealing with colors as our 'data points', and we're using a distance function to figure out how different two colors are. Our goal is to group these colors into a specific number of sets and find the average color for each set. Using the average color makes sense because it's like blending the colors together when you squint your eyes and see a general color for each group.
+		</p>
+		<img src="/k-means.png" alt="K-means clustering algorithm">
+
+		<h1>Where are the images analyzed?</h1>
+		<p>
+			What colors? It is not a cloud service, it is just a static site that works locally with your computer's resources.
+		</p>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	h1, h2, h3 {
+		@apply py-2 font-bold
+	}
+
+	h1 {
+		@apply text-xl lg:text-2xl;
+	}
+
+	h2 {
+		@apply text-lg lg:text-xl;
+	}
+
+	p {
+		@apply pb-4
+	}
+}
+</style>

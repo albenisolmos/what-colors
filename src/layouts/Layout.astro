@@ -1,0 +1,103 @@
+---
+import '@fontsource-variable/onest'
+
+interface Props {
+	title: string
+	description: string
+}
+
+const { title, description } = Astro.props
+---
+
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='UTF-8' />
+		<meta name='description' content={description} />
+		<meta name='viewport' content='width=device-width' />
+		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+		<meta name='generator' content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+
+	<body class='flex flex-col items-center h-dvh overflow-hidden  px-4 bg-slate-50 dark:bg-black dark:text-white'>
+		<slot />
+	</body>
+
+	<style is:global>
+		@tailwind base;
+		@tailwind components;
+		@tailwind utilities;
+
+		html {
+			overflow: hidden;
+		}
+		body {
+			@apply text-gray-800;
+		}
+
+		@layer components {
+			.boxgroup > *:not(:first-child, :last-child) {
+				border-radius: 0;
+			}
+
+			.boxgroup > *:first-child:not(:only-child) {
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			}
+
+			.boxgroup > *:last-child:not(:only-child) {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+
+			.rainbow {
+				transform-style: preserve-3d;
+			}
+
+			.rainbow:before {
+				content: "";
+				position: absolute;
+				opacity: 0;
+				inset: -1px;
+				width: 100%;
+				border-radius: inherit;
+				transform: translate3d(2px, 4px, -1px); /* (X, Y, Z) */
+				transition: opacity 0.4s ease-in-out;
+				-webkit-transition: opacity 0.4s ease-in-out;
+			}
+
+			.rainbow:hover:before {
+				opacity: 0.7;
+				background: conic-gradient(
+					from 90deg at 40% -25%,
+					#ffd700,
+					#f79d03,
+					#ee6907,
+					#e6390a,
+					#de0d0d,
+					#d61039,
+					#cf1261,
+					#c71585,
+					#cf1261,
+					#d61039,
+					#de0d0d,
+					#ee6907,
+					#f79d03,
+					#ffd700,
+					#ffd700,
+					#ffd700
+				);
+				filter: blur(4px);
+			}
+
+			.rainbow:active {
+				border-color: #ffd700;
+			}
+		}
+
+		body {
+			font-family: 'Onest Variable', system-ui, sans-serif;
+		}
+	</style>
+</html>

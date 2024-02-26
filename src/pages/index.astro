@@ -1,0 +1,95 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Header from '@/ui/Header.astro'
+import Color from '@/ui/Color.svelte'
+import Palette from '@/ui/Palette.svelte'
+import ImageDrop from '@/components/ImageDrop.svelte'
+import Footer from '@/ui/Footer.astro'
+import LightMode from '@/icons/LightMode.astro'
+import DarkMode from '@/icons/DarkMode.astro'
+---
+<Layout
+	title='What colors'
+	description='Drop any image and extracts his palette of colors'>
+	<Header />
+	<main class='flex flex-col items-center gap-4 w-full min-w-96 px-4'>
+		<ImageDrop client:load/>
+		<Palette client:load/>
+	</main>
+
+	<Footer />
+</Layout>
+
+<script>
+	import { image, imagePixelData, state } from '@/stores.js'
+	import { STATES, IMAGE_FILETYPES } from '@/consts.js'
+	import { uploadFile, fileToImage, isImage, extractPixelData } from '@/utils.js'
+
+	function handlerFiles(files: FileList) {
+		const file = files[0]
+
+		if (!isImage(file)) {
+			window.alert('paste file is not an image instead is ' + file.type)
+			return
+		}
+
+		uploadFile(file)
+	}
+
+	function pasteHandler(event) {
+		event.preventDefault()	
+
+		const clipboardData = event.clipboardData || window.clipboardData
+		if (!clipboardData.files && clipboardData.files.length < 0) {
+			return
+		}
+
+		handlerFiles(clipboardData.files)
+	}
+
+	function dropHandler(e) {
+		e.preventDefault()	
+        document.body.classList.remove('dragging')
+
+		if (event.dataTransfer && event.dataTransfer.files.length > 1) {
+			handlerFiles(e.dataTransfer.files)
+		}
+	}
+
+	function preventDefault(event) {
+		event.preventDefault()	
+	}
+
+	function handleDragEnter(e) {
+		const data = e.dataTransfer
+		if ((data.files && data.files.length > 0) && STATES.DRAGGING != state.get()) {
+			state.set(STATES.DRAGGING)
+		}
+	}
+
+	function handleDragLeave() {
+        document.body.classList.remove('dragging')
+
+		if (STATES.INITIAL != state.get()) {
+			state.set(STATES.INITIAL)
+		}
+	}
+
+	function handlerDragStart() {
+		document.body.classList.add('dragging')
+    }
+
+
+	document.addEventListener('drop', dropHandler, false)
+	document.addEventListener('dragenter', handlerDragStart)
+	document.addEventListener('dragenter', handleDragEnter)
+	document.addEventListener('dragleave', handleDragLeave)
+	document.addEventListener('dragover', preventDefault)
+	document.addEventListener('paste', pasteHandler);
+</script>
+
+<style is:global>
+	.dragging * {
+		pointer-events: none;
+	}
+</style>

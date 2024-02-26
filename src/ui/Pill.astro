@@ -1,0 +1,40 @@
+---
+let { href, target} = Astro.props
+---
+<a href={href} target={target} class='rainbow flex items-center gap-2 h-10 max-w-48 py-2 px-4 rounded-full bg-white border border-slate-300 dark:bg-gray-950 dark:border-gray-800'>
+	<slot />
+</a>
+
+<style>
+a {
+	cursor: pointer;
+	position: relative;
+	transition: 0.5s;
+}
+
+a:before {
+	border-radius: 9999px;
+}
+
+a:after {
+	content: '⭧ ';
+	color: #303030;
+	font-size: 20px;
+	position: absolute;
+	opacity: 0;
+	top: 50%;
+	right: 20%;
+	transform: translate(20%, -50%);
+	transition: 0.5s;
+}
+
+a:hover {
+	padding-right: 24px;
+	padding-left:8px;
+}
+
+a:hover:after {
+	right: 10px;
+	opacity: 1;
+}
+</style>
