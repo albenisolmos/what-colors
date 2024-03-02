@@ -46,15 +46,18 @@ export function extractPixelData(image) {
 
 export async function extractColorPalette(colors, k) {
 	// Cluster raw colours
-	const clusters = kmeans(colors, k, (err, res) => {
+	// NOTE: this implementation of kmeans algorithm has a bug i can't fix
+	// so to hadle this k needs to be '2k + 2' and remove empty colors
+	const clusters = kmeans(colors, k * 2 + 2, (err, res) => {
 		if (err) throw new Error(err)
 	})
 
 	// Calculate palette (mean colour of each cluster)
 	const colours = clusters.cluster.map((x) => meanPoint(x))
-	const palette = colours.map((x) => {
+	let palette = colours.map((x) => {
 		return [Math.floor(x[0]), Math.floor(x[1]), Math.floor(x[2])]
 	})
+	palette = palette.filter((color) => color) // remove empty elements
 
 	/*
 	const palette = clusters.centroids.map(x => [
