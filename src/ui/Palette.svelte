@@ -11,9 +11,19 @@
 
 	const MAX_PALETTE_LENGTH = 16
 	let dialog
+	let worker = new Worker("../paletteWorker.js", { type: "module" })
+
+	worker.addEventListener("message", (event) => {
+		palette.set(event.data)
+	})
 
 	function updatePalette(data) {
 		if (!data) {
+			return
+		}
+
+		if (worker) {
+			worker.postMessage({ data: data, k: $paletteLength })
 			return
 		}
 

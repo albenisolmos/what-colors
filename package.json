@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/svelte": "^5.0.2",
     "@astrojs/tailwind": "^5.0.4",
+    "@astropub/worker": "^0.1.0",
     "@fontsource-variable/onest": "^5.0.2",
     "astro": "^4.0.7",
     "kmeansjs": "^0.0.3",
