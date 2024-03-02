@@ -11,6 +11,9 @@ dependencies:
   '@astrojs/tailwind':
     specifier: ^5.0.4
     version: 5.0.4(astro@4.0.7)(tailwindcss@3.4.0)
+  '@astropub/worker':
+    specifier: ^0.1.0
+    version: 0.1.0
   '@fontsource-variable/onest':
     specifier: ^5.0.2
     version: 5.0.2
@@ -140,6 +143,10 @@ packages:
       which-pm-runs: 1.1.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@astropub/worker@0.1.0:
+    resolution: {integrity: sha512-Ob/MeUwtlIz4Ni5P86SK6CWY3fPI8CewMXHMGu1/RegQRKFgUDFDbV0KanmbFbG5UKUjgLVE0KPqwWDNhmr7XQ==}
     dev: false
 
   /@babel/code-frame@7.23.5:
