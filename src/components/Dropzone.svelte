@@ -27,8 +27,18 @@
 	}
 
 	state.subscribe((newState) => {
+		if (newState == STATES.INITIAL) {
+			files = undefined
+		}
+
 		if (newState == STATES.DRAGGING) {
 			colorDashed = twColors.slate[900]
+		} else {
+			colorDashed = twColors.slate[300]
+		}
+
+		if (newState == STATES.DONE) {
+			colorDashed = "transparent"
 		} else {
 			colorDashed = twColors.slate[300]
 		}
