@@ -101,6 +101,6 @@ export function uploadFile(file) {
 	fileToImage(file).then((img) => {
 		image.set(img)
 		imagePixelData.set(extractPixelData(img))
-		state.set(STATES.DONE)
+		state.set(STATES.PROCESSING)
 	})
 }

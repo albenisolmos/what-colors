@@ -7,7 +7,14 @@
 	import PlusIcon from "@/icons/Plus.svelte"
 	import { writable } from "svelte/store"
 	import { extractColorPalette } from "@/utils.js"
-	import { imagePixelData, palette, paletteLength, model } from "@/stores.js"
+	import {
+		state,
+		imagePixelData,
+		palette,
+		paletteLength,
+		model,
+	} from "@/stores.js"
+	import { STATES } from "@/consts.js"
 
 	const MAX_PALETTE_LENGTH = 16
 	let dialog
@@ -15,6 +22,7 @@
 
 	worker.addEventListener("message", (event) => {
 		palette.set(event.data)
+		state.set(STATES.DONE)
 	})
 
 	function updatePalette(data) {
@@ -30,6 +38,7 @@
 		extractColorPalette(data, $paletteLength)
 			.then((newPalette) => {
 				palette.set(newPalette)
+				state.set(STATES.DONE)
 			})
 			.catch((e) => {
 				console.error(e)
@@ -76,6 +85,7 @@
 <div class="flex flex-col items-center gap-2 w-full max-w-[35em]">
 	<div class="flex items-center gap-2">
 		<label for="paletteLength">Palette Length</label>
+
 		<div class="boxgroup flex">
 			<Button class="w-10 px-0" on:click={decrementLength}>
 				<MinusIcon class="text-gray-700 h-6" />
@@ -86,12 +96,13 @@
 				max="16"
 				placeholder="Palette length"
 				bind:value={$length}
-				class="h-10 p-2 ounded border border-slate-200 focus:border-primary outline-none dark:bg-gray-950 dark:border-gray-800"
+				class="h-10 p-2 rounded border border-slate-200 focus:border-primary outline-none dark:bg-gray-950 dark:border-gray-800"
 			/>
 			<Button class="text-2xl w-10 px-0" on:click={incrementLength}>
 				<PlusIcon class="text-gray-700 h-6" />
 			</Button>
 		</div>
+
 		<Button class="px-2" on:click={showExportDialog}>
 			<ShareIcon class="text-gray-700 h-6" />
 		</Button>
