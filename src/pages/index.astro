@@ -1,19 +1,16 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import Header from '@/ui/Header.astro'
-import Color from '@/ui/Color.svelte'
 import Palette from '@/ui/Palette.svelte'
-import ImageDrop from '@/components/ImageDrop.svelte'
+import Dropzone from '@/components/Dropzone.svelte'
 import Footer from '@/ui/Footer.astro'
-import LightMode from '@/icons/LightMode.astro'
-import DarkMode from '@/icons/DarkMode.astro'
 ---
 <Layout
 	title='What colors'
 	description='Drop any image and extracts his palette of colors'>
 	<Header />
 	<main class='flex flex-col items-center gap-4 w-full min-w-96 px-4'>
-		<ImageDrop client:load/>
+		<Dropzone client:load/>
 		<Palette client:load/>
 	</main>
 
@@ -25,7 +22,7 @@ import DarkMode from '@/icons/DarkMode.astro'
 	import { STATES, IMAGE_FILETYPES } from '@/consts.js'
 	import { uploadFile, fileToImage, isImage, extractPixelData } from '@/utils.js'
 
-	function handlerFiles(files: FileList) {
+	function filesHandler(files: FileList) {
 		const file = files[0]
 
 		if (!isImage(file)) {
@@ -44,7 +41,7 @@ import DarkMode from '@/icons/DarkMode.astro'
 			return
 		}
 
-		handlerFiles(clipboardData.files)
+		filesHandler(clipboardData.files)
 	}
 
 	function dropHandler(e) {
@@ -52,7 +49,7 @@ import DarkMode from '@/icons/DarkMode.astro'
         document.body.classList.remove('dragging')
 
 		if (event.dataTransfer && event.dataTransfer.files.length > 1) {
-			handlerFiles(e.dataTransfer.files)
+			filesHandler(e.dataTransfer.files)
 		}
 	}
 
@@ -60,14 +57,15 @@ import DarkMode from '@/icons/DarkMode.astro'
 		event.preventDefault()	
 	}
 
-	function handleDragEnter(e) {
+	function dragEnterHandler(e) {
 		const data = e.dataTransfer
 		if ((data.files && data.files.length > 0) && STATES.DRAGGING != state.get()) {
+			document.body.classList.add('dragging')
 			state.set(STATES.DRAGGING)
 		}
 	}
 
-	function handleDragLeave() {
+	function dragLeaveHandler() {
         document.body.classList.remove('dragging')
 
 		if (STATES.INITIAL != state.get()) {
@@ -75,15 +73,9 @@ import DarkMode from '@/icons/DarkMode.astro'
 		}
 	}
 
-	function handlerDragStart() {
-		document.body.classList.add('dragging')
-    }
-
-
 	document.addEventListener('drop', dropHandler, false)
-	document.addEventListener('dragenter', handlerDragStart)
-	document.addEventListener('dragenter', handleDragEnter)
-	document.addEventListener('dragleave', handleDragLeave)
+	document.addEventListener('dragenter', dragEnterHandler)
+	document.addEventListener('dragleave', dragLeaveHandler)
 	document.addEventListener('dragover', preventDefault)
 	document.addEventListener('paste', pasteHandler);
 </script>
