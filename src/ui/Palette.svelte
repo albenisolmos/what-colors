@@ -82,30 +82,31 @@
 	}
 </script>
 
-<div class="flex flex-col items-center gap-2 w-full max-w-[35em]">
-	<div class="flex items-center gap-2">
+<div class="flex flex-col gap-2 w-full max-w-[35em]">
+	<div class="flex justify-center items-center gap-2">
 		<label for="paletteLength">Palette Length</label>
 
-		<div class="boxgroup flex">
-			<Button class="w-10 px-0" on:click={decrementLength}>
-				<MinusIcon class="text-gray-700 h-6" />
-			</Button>
-			<input
-				name="paletteLength"
-				type="number"
-				max="16"
-				placeholder="Palette length"
-				bind:value={$length}
-				class="h-10 p-2 rounded border border-slate-200 focus:border-primary outline-none dark:bg-gray-950 dark:border-gray-800"
-			/>
-			<Button class="text-2xl w-10 px-0" on:click={incrementLength}>
-				<PlusIcon class="text-gray-700 h-6" />
+		<div class="flex gap-2">
+			<div class="boxgroup flex">
+				<Button class="w-10 px-0" on:click={decrementLength}>
+					<MinusIcon class="text-gray-700 h-6" />
+				</Button>
+				<input
+					name="paletteLength"
+					type="number"
+					max="16"
+					placeholder="Palette length"
+					bind:value={$length}
+					class="h-10 w-28 p-2 rounded border border-slate-200 focus:border-primary outline-none dark:bg-gray-950 dark:border-gray-800"
+				/>
+				<Button class="text-2xl w-10 px-0" on:click={incrementLength}>
+					<PlusIcon class="text-gray-700 h-6" />
+				</Button>
+			</div>
+			<Button class="px-2" on:click={showExportDialog}>
+				<ShareIcon class="text-gray-700 h-6" />
 			</Button>
 		</div>
-
-		<Button class="px-2" on:click={showExportDialog}>
-			<ShareIcon class="text-gray-700 h-6" />
-		</Button>
 	</div>
 
 	<ul class="[&>*]:rounded-[1em] boxgroup w-full flex">

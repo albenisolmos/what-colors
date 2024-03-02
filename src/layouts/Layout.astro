@@ -1,5 +1,6 @@
 ---
 import '@fontsource-variable/onest'
+import { twMerge } from 'tailwind-merge'
 
 interface Props {
 	title: string
@@ -7,6 +8,7 @@ interface Props {
 }
 
 const { title, description } = Astro.props
+const defaultClass = 'h-dvh w-screen overflow-auto px-4 bg-slate-50 dark:bg-black dark:text-white'
 ---
 
 <!doctype html>
@@ -14,13 +16,13 @@ const { title, description } = Astro.props
 	<head>
 		<meta charset='UTF-8' />
 		<meta name='description' content={description} />
-		<meta name='viewport' content='width=device-width' />
+		<meta name='viewport' content='width=device-width' initial-scale='1.0'/>
 		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 		<meta name='generator' content={Astro.generator} />
 		<title>{title}</title>
 	</head>
 
-	<body class='flex flex-col items-center h-dvh overflow-hidden  px-4 bg-slate-50 dark:bg-black dark:text-white'>
+	<body class={twMerge(defaultClass, Astro.props.class)}>
 		<slot />
 	</body>
 
@@ -29,9 +31,6 @@ const { title, description } = Astro.props
 		@tailwind components;
 		@tailwind utilities;
 
-		html {
-			overflow: hidden;
-		}
 		body {
 			@apply text-gray-800;
 		}

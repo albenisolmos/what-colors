@@ -4,13 +4,17 @@
 	import Mail from '../icons/Mail.astro'
 	import Pill from './Pill.astro'
 ---
-<footer class='py-6 flex items-center gap-4'>
-	Built by Albenis Olmos
-	<Pill href='/about' >
-		About
-	</Pill>
-	<Pill href='https://github.com/albenisolmos/what-colors' target='_blank' rel='noopener noreferrer'>
-		<Github class='h-6'/>
-		Github
-	</Pill>
+<footer class='w-fit h-fit pb-2 pt-4 flex flex-col md:flex-row justify-center items-center gap-4'>
+	<span class='order-last md:order-first'>
+		Built by Albenis Olmos
+	</span>
+	<div class='flex gap-4 order-first md:order-last'>
+		<Pill href='/about' >
+			About
+		</Pill>
+		<Pill href='https://github.com/albenisolmos/what-colors' target='_blank' rel='noopener noreferrer'>
+			<Github class='h-6'/>
+			Github
+		</Pill>
+	</div>
 </footer>

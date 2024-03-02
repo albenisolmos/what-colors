@@ -2,7 +2,7 @@
 	import { getContext } from "svelte"
 	const dropdown = getContext("dropdown")
 
-	let _default
+	let _default = false
 	export let name
 	export let value
 	export { _default as default }

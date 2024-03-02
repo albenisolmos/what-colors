@@ -7,14 +7,15 @@ import Footer from '@/ui/Footer.astro'
 ---
 <Layout
 	title='What colors'
-	description='Drop any image and extracts his palette of colors'>
+	description='Drop any image and extracts his palette of colors'
+	class='flex flex-col items-center overflow-scroll'>
 	<Header />
-	<main class='flex flex-col items-center gap-4 w-full min-w-96 px-4'>
+	<main class='flex-1 flex flex-col justify-center items-center gap-7 w-full'>
 		<Dropzone client:load/>
 		<Palette client:load/>
 	</main>
 
-	<Footer />
+	<Footer/>
 </Layout>
 
 <script>
