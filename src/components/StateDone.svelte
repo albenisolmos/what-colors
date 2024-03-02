@@ -16,8 +16,8 @@
 	})
 </script>
 
-<div class="size-full flex justify-center gap-2">
-	<CircleButton on:click={resetState} class="p-none">
+<div class="relative h-full w-fit mx-auto">
+	<CircleButton class="absolute -left-12 top-0" on:click={resetState}>
 		<ResetIcon class="h-6 text-gray-700" />
 	</CircleButton>
 	<img bind:this={img} src="#" alt="" class="h-full" />
